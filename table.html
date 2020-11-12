@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Table</title>
+		<style>
+			body { margin: 0; }
+			canvas { display: block; }
+		</style>
+	</head>
+	<body>
+		<script src="js/three.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		<script>
+			const scene = new THREE.Scene();
+			scene.background =  new THREE.Color("#AFF4F7");
+			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+			const renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+
+			//mouseMovement
+			window.addEventListener('resize', function(){
+				var width = window.innerWidth;
+				var height = window.innerHeight;
+				renderer.setSize(width,height);
+				camera.aspect = width/height;
+				camera.updateProjectionMatrix();
+			});
+			controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+
+			//legGeometry
+			const legGeometry = new THREE.BoxGeometry( 1, 20, 1 );
+			
+
+			//firstLeg
+			const firstLegMaterial = new THREE.MeshBasicMaterial( {color: "#74F773", wireframe:false} );
+			const firstLeg = new THREE.Mesh( legGeometry, firstLegMaterial);
+			scene.add(firstLeg);
+
+
+
+			//secondLeg
+			const secondLegMaterial = new THREE.MeshBasicMaterial( {color: "#73ABF7" , wireframe:false} );
+			const secondLeg = new THREE.Mesh( legGeometry, secondLegMaterial);
+			secondLeg.position.x += 10;
+			scene.add(secondLeg);
+
+
+
+			//thirdLeg
+			const thirdLegMaterial = new THREE.MeshBasicMaterial( {color: "#DE73F7 " , wireframe:false} );
+			const thirdLeg = new THREE.Mesh( legGeometry, thirdLegMaterial);
+			thirdLeg.position.z -= 5;
+			scene.add(thirdLeg);
+
+
+
+
+			//fourthLeg
+			const fourtLegMaterial = new THREE.MeshBasicMaterial( {color: "#EAF773" , wireframe:false} );
+			const fourthLeg = new THREE.Mesh( legGeometry, fourtLegMaterial);
+			fourthLeg.position.x += 10;
+			fourthLeg.position.z -= 5;
+
+
+			scene.add(fourthLeg);
+
+			//Top table part
+			const tableGeometry = new THREE.BoxGeometry( 15, 2, -10 );
+			const tableMaterial = new THREE.MeshBasicMaterial( {color: "#FF0000" , wireframe:false} );
+			const table = new THREE.Mesh( tableGeometry, tableMaterial);
+			table.position.y += 10;
+			table.position.x += 5;
+			table.position.z -= 2;
+			scene.add(table);
+
+
+
+
+
+			camera.position.z = 50;
+
+			const animate = function () {
+				requestAnimationFrame( animate );
+
+				//cube.rotation.x += 0.01;
+				//cube.rotation.y += 0.01;
+
+				renderer.render( scene, camera );
+			};
+
+			animate();
+		</script>
+	</body>
+</html>
